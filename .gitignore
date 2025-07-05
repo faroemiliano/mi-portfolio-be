@@ -1,0 +1,28 @@
+env/
+venv/
+.venv/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Archivos de Django
+*.pot
+*.pyc
+db.sqlite3
+*.py~
+
+# Configuración de IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de Git
+*.bak
