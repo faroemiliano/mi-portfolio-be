@@ -1,27 +1,28 @@
 from rest_framework import generics
-from .models import Comentario
-from .serializers import ComentarioSerializer
-from django.core.mail import send_mail
-from django.conf import settings
+from comentarios.models import Comentario
+from comentarios.serializers import ComentarioSerializer
+from comentarios.utils.mensage_telegram import send_telegram_message
+
+TELEGRAM_TOKEN = "8049716688:AAFT4-FYeNbyugHNyox7YzLdmqrk6dtsL_o"
+TELEGRAM_CHAT_ID = "7813490283"
 
 class ComentarioListCreateView(generics.ListCreateAPIView):
-    queryset = Comentario.objects.all().order_by('creado_en')
+    queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
 
     def perform_create(self, serializer):
         comentario = serializer.save()
 
-        # Enviar email al administrador (vos)
-        send_mail(
-            subject=f"Nuevo comentario de {comentario.autor}",
-            message=f"""
-            Has recibido un nuevo comentario.
-
-            Nombre: {comentario.autor}
-            Email: {comentario.email}
-            Mensaje: {comentario.mensaje}
-            """,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=['faroemiliano@gmail.com'],  # <-- reemplazalo con tu email
-            fail_silently=False,
+        mensaje = (
+            f"📩 *Nuevo comentario recibido*\n"
+            f"👤 Autor: {comentario.autor}\n"
+            f"✉️ Email: {comentario.email}\n"
+            f"💬 Mensaje: {comentario.mensaje}\n"
+            f"🕒 Fecha: {comentario.creado_en}"
+        )
+        print("ENVIANDO MENSAJE A TELEGRAM...")
+        send_telegram_message(
+            TELEGRAM_TOKEN,
+            TELEGRAM_CHAT_ID,
+            mensaje
         )
