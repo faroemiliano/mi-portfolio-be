@@ -26,3 +26,5 @@ Thumbs.db
 
 # Archivos de Git
 *.bak
+__pycache__/
+*.pyc

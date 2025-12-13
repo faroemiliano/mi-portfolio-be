@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
+TELEGRAM_TOKEN = os.getenv("8049716688:AAFT4-FYeNbyugHNyox7YzLdmqrk6dtsL_o")
+TELEGRAM_CHAT_ID = os.getenv("7813490283")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +28,9 @@ SECRET_KEY = 'django-insecure-1cd^bs3aocdsh^e_v5seldf5o$+b_!st3l@^f*k16qy@y#n58r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["mi-portfolio-be-2.onrender.com",
+    "localhost",
+    "127.0.0.1",]
 
 
 # Application definition
